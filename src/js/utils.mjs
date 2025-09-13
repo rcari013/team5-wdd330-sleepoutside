@@ -28,3 +28,24 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
+
+// load header and footer partials into #main-header and #main-footer
+export async function loadHeaderFooter() {
+  try {
+    const header = await fetch("/partials/header.html").then(res => res.text());
+    const footer = await fetch("/partials/footer.html").then(res => res.text());
+
+    document.querySelector("#main-header").innerHTML = header;
+    document.querySelector("#main-footer").innerHTML = footer;
+  } catch (err) {
+    console.error("Error loading header/footer:", err);
+  }
+}
+
+// other existing exports (qs, getLocalStorage, etc.)
+
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true) {
+  if (clear) parentElement.innerHTML = "";
+  const htmlStrings = list.map(templateFn);
+  parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
