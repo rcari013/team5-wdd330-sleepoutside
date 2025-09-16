@@ -1,6 +1,6 @@
 import { renderListWithTemplate } from "./utils.mjs";
 import ProductData from "./ProductData.mjs";
-import productCardTemplate from "./productCardTemplate.mjs";
+import productCardTemplate from "./productCardTemplate.js";
 
 export default class ProductList {
   constructor(category, listElement) {

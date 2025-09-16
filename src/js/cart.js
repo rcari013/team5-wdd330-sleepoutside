@@ -10,18 +10,27 @@ function renderCartContents() {
 }
 
 function cartItemTemplate(item) {
+  const image =
+    item.Images?.PrimaryMedium ||
+    item.Images?.PrimaryLarge ||
+    item.Image ||
+    item.image ||
+    item.ImageUrl ||
+    "/images/placeholder.png"; // fallback
+
   return `<li class="cart-card divider">
     <a href="/product_pages/index.html?product=${item.Id}" class="cart-card__image">
-      <img src="${item.Image}" alt="${item.Name}" />
+      <img src="${image}" alt="${item.Name}" />
     </a>
     <a href="/product_pages/index.html?product=${item.Id}">
       <h2 class="card__name">${item.Name}</h2>
     </a>
-    <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+    ${item.Colors?.[0]?.ColorName ? `<p class="cart-card__color">${item.Colors[0].ColorName}</p>` : ""}
     <p class="cart-card__quantity">qty: 1</p>
     <p class="cart-card__price">$${item.FinalPrice}</p>
   </li>`;
 }
+
 
 
 function showCartTotal(cartItems) {

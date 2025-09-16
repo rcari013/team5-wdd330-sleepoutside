@@ -24,11 +24,12 @@ async getData() {
 
 
 
-  async findProductById(id) {
-    const response = await fetch(`${baseURL}product/${id}`);
-    return convertToJson(response);
-  }
+async findProductById(id) {
+  const response = await fetch(`${baseURL}product/${id}`);
+  const data = await convertToJson(response);
+  return data.Result; // unwrap the actual product
 }
+
 
 
 
