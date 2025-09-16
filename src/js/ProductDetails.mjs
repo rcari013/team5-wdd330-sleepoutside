@@ -1,5 +1,3 @@
-// src/js/ProductDetails.mjs
-
 const el = document.querySelector("#product-details");
 const id = new URLSearchParams(location.search).get("product");
 
@@ -10,26 +8,39 @@ async function init() {
   }
 
   try {
-    const products = await fetch("/json/tents.json").then(r => r.json());
-    const p = products.find(x =>
-      String(x.Id || x.id || x.SKU || x.sku).toLowerCase() === id.toLowerCase()
-    );
+    const p = await fetch(`https://wdd330-backend.onrender.com/product/${id}`)
+      .then(r => r.json())
+      .then(d => d.Result);
 
     if (!p) {
       el.innerHTML = `<p>Product not found: ${id}</p>`;
     } else {
       el.innerHTML = renderProduct(p);
 
-      // ✅ button exists now → attach listener directly here
       const btn = el.querySelector("#addToCart");
       if (btn) {
         btn.addEventListener("click", () => {
-          // minimal "add to cart" action
           let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
-          cart.push(p);
+
+          // ✅ Save only the fields we need
+          const cartItem = {
+            Id: p.Id,
+            Name: p.Name,
+            FinalPrice: p.FinalPrice ?? p.Price ?? 0,
+            Image:
+              p.Images?.PrimaryMedium ||
+              p.Images?.PrimaryLarge ||
+              p.Image ||
+              p.ImageUrl ||
+              (p.ImageName ? `/images/tents/${p.ImageName}` : ""),
+            Color: p.Colors?.[0]?.ColorName || ""
+          };
+
+          cart.push(cartItem);
           localStorage.setItem("so-cart", JSON.stringify(cart));
-          console.log("Added to cart:", p);
+          console.log("Added to cart:", cartItem);
         });
+
       }
     }
   } catch (err) {
@@ -38,7 +49,7 @@ async function init() {
   }
 }
 
-init();
+init(); // <-- keep this to run on page load
 
 function money(v) {
   const n = Number(v ?? 0);
@@ -51,6 +62,9 @@ function renderProduct(p) {
   const desc = p.Description || p.description || p.DescriptionHtmlSimple || "";
   const price = p.FinalPrice ?? p.Price ?? p.price ?? 0;
   const image =
+    p.Images?.PrimaryLarge ||
+    p.Images?.PrimaryMedium ||
+    p.Images?.PrimarySmall ||
     p.Image || p.image || p.ImageUrl || p.imageUrl ||
     `/images/tents/${p.ImageName || p.imageName || ""}`;
 
@@ -68,3 +82,4 @@ function renderProduct(p) {
     </section>
   `;
 }
+

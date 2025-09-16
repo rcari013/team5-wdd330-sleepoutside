@@ -272,3 +272,69 @@ footer {
   font-weight: bold;
   font-size: 1.2rem;
 }
+
+/* Categories Section */
+.categories {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem; /* keep nice spacing between items */
+  justify-items: center;
+}
+
+.category-grid a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 150px;   /* make it square */
+  height: 150px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-grid a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.category-grid img {
+  width: 100px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+
+.category-grid p {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.categories h2 {
+  margin-bottom: 1.5rem; /* spacing between heading and grid */
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.products h2 {
+  text-align: center;
+  margin-bottom: 1.5rem; /* space below header */
+  margin-top: 1rem;      /* space above header */
+  font-size: 2rem;       /* make it stand out */
+  font-weight: bold;
+}
+
+#product-details .divider {
+  border: none;     /* removes the orange line */
+  margin: 20px;        /* optional: remove extra spacing */
+}
+
