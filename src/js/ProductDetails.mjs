@@ -1,55 +1,50 @@
-const el = document.querySelector("#product-details");
-const id = new URLSearchParams(location.search).get("product");
-
-async function init() {
-  if (!id) {
-    el.innerHTML = "<p>No product selected.</p>";
+// ProductDetails.mjs
+export async function renderProductDetails(productId, container) {
+  if (!productId) {
+    container.innerHTML = "<p>No product selected.</p>";
     return;
   }
 
   try {
-    const p = await fetch(`https://wdd330-backend.onrender.com/product/${id}`)
+    const p = await fetch(`https://wdd330-backend.onrender.com/product/${productId}`)
       .then(r => r.json())
       .then(d => d.Result);
 
     if (!p) {
-      el.innerHTML = `<p>Product not found: ${id}</p>`;
-    } else {
-      el.innerHTML = renderProduct(p);
+      container.innerHTML = `<p>Product not found: ${productId}</p>`;
+      return;
+    }
 
-      const btn = el.querySelector("#addToCart");
-      if (btn) {
-        btn.addEventListener("click", () => {
-          let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
+    container.innerHTML = renderProduct(p);
 
-          // ✅ Save only the fields we need
-          const cartItem = {
-            Id: p.Id,
-            Name: p.Name,
-            FinalPrice: p.FinalPrice ?? p.Price ?? 0,
-            Image:
-              p.Images?.PrimaryMedium ||
-              p.Images?.PrimaryLarge ||
-              p.Image ||
-              p.ImageUrl ||
-              (p.ImageName ? `/images/tents/${p.ImageName}` : ""),
-            Color: p.Colors?.[0]?.ColorName || ""
-          };
+    const btn = container.querySelector("#addToCart");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
 
-          cart.push(cartItem);
-          localStorage.setItem("so-cart", JSON.stringify(cart));
-          console.log("Added to cart:", cartItem);
-        });
+        const cartItem = {
+          Id: p.Id,
+          Name: p.Name,
+          FinalPrice: p.FinalPrice ?? p.Price ?? 0,
+          Image:
+            p.Images?.PrimaryMedium ||
+            p.Images?.PrimaryLarge ||
+            p.Image ||
+            p.ImageUrl ||
+            (p.ImageName ? `/images/tents/${p.ImageName}` : ""),
+          Color: p.Colors?.[0]?.ColorName || ""
+        };
 
-      }
+        cart.push(cartItem);
+        localStorage.setItem("so-cart", JSON.stringify(cart));
+        console.log("Added to cart:", cartItem);
+      });
     }
   } catch (err) {
-    el.innerHTML = `<p>Error loading product.</p>`;
+    container.innerHTML = `<p>Error loading product.</p>`;
     console.error(err);
   }
 }
-
-init(); // <-- keep this to run on page load
 
 function money(v) {
   const n = Number(v ?? 0);
@@ -57,16 +52,17 @@ function money(v) {
 }
 
 function renderProduct(p) {
-  const brand = p.Brand?.Name || p.Brand || p.brand || p.Manufacturer || "";
-  const name = p.Name || p.name || "";
-  const desc = p.Description || p.description || p.DescriptionHtmlSimple || "";
-  const price = p.FinalPrice ?? p.Price ?? p.price ?? 0;
+  const brand = p.Brand?.Name || p.Brand || p.Manufacturer || "";
+  const name = p.Name || "";
+  const desc = p.Description || p.DescriptionHtmlSimple || "";
+  const price = p.FinalPrice ?? p.Price ?? 0;
   const image =
     p.Images?.PrimaryLarge ||
     p.Images?.PrimaryMedium ||
     p.Images?.PrimarySmall ||
-    p.Image || p.image || p.ImageUrl || p.imageUrl ||
-    `/images/tents/${p.ImageName || p.imageName || ""}`;
+    p.Image ||
+    p.ImageUrl ||
+    `/images/tents/${p.ImageName || ""}`;
 
   return `
     <section class="product-detail">
@@ -74,12 +70,11 @@ function renderProduct(p) {
       <h2 class="divider">${name}</h2>
       <img class="divider" src="${image}" alt="${name}">
       <p class="product-card__price">${money(price)}</p>
-      ${p.Color || p.color ? `<p class="product__color">${p.Color || p.color}</p>` : ""}
+      ${p.Color ? `<p class="product__color">${p.Color}</p>` : ""}
       ${desc ? `<p class="product__description">${desc}</p>` : ""}
       <div class="product-detail__add">
-        <button id="addToCart" data-id="${p.Id || p.id}">Add to Cart</button>
+        <button id="addToCart" data-id="${p.Id}">Add to Cart</button>
       </div>
     </section>
   `;
 }
-

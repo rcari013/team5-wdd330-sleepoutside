@@ -1,5 +1,8 @@
-// src/js/product_listing.js
 import ProductList from "../js/ProductList.mjs";
+import { loadHeaderFooter } from "./utils.mjs";
+
+// load shared header and footer
+loadHeaderFooter();
 
 const params = new URLSearchParams(window.location.search);
 const category = params.get("category") || "tents";

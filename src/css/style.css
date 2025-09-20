@@ -338,3 +338,17 @@ footer {
   margin: 20px;        /* optional: remove extra spacing */
 }
 
+.products h2 {
+  margin-top: 0;
+}
+
+main.divider {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.products {
+  margin-top: 1rem;   /* changed from 2rem */
+  margin-bottom: 1rem;
+}
+
