@@ -2,8 +2,6 @@
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
 // retrieve data from localStorage
 export function getLocalStorage(key) {
@@ -29,23 +27,43 @@ export function setClick(selector, callback) {
   qs(selector).addEventListener("click", callback);
 }
 
-// load header and footer partials into #main-header and #main-footer
-export async function loadHeaderFooter() {
-  try {
-    const header = await fetch("/partials/header.html").then(res => res.text());
-    const footer = await fetch("/partials/footer.html").then(res => res.text());
-
-    document.querySelector("#main-header").innerHTML = header;
-    document.querySelector("#main-footer").innerHTML = footer;
-  } catch (err) {
-    console.error("Error loading header/footer:", err);
-  }
-}
-
-// other existing exports (qs, getLocalStorage, etc.)
-
+// render a list of templates
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true) {
   if (clear) parentElement.innerHTML = "";
   const htmlStrings = list.map(templateFn);
   parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
+}
+
+// render a single template into a parent element
+export function renderWithTemplate(template, parentElement, data, callback) {
+  parentElement.innerHTML = template;
+  if (callback) {
+    callback(data);
+  }
+}
+
+// fetch an HTML partial and return as string
+export async function loadTemplate(path) {
+  const response = await fetch(path);
+  const text = await response.text();
+  return text;
+}
+
+// combine header + footer loading
+export async function loadHeaderFooter() {
+  try {
+    // load template files (note: no /public prefix)
+    const header = await loadTemplate("/partials/header.html");
+    const footer = await loadTemplate("/partials/footer.html");
+
+    // grab placeholder DOM nodes
+    const headerElement = document.querySelector("#main-header");
+    const footerElement = document.querySelector("#main-footer");
+
+    // render into DOM
+    renderWithTemplate(header, headerElement);
+    renderWithTemplate(footer, footerElement);
+  } catch (err) {
+    console.error("Error loading header/footer:", err);
+  }
 }
