@@ -4,7 +4,9 @@ import { loadHeaderFooter } from "./utils.mjs";
 // load header and footer
 loadHeaderFooter();
 
-// product listing
+// product listing (only if .product-list exists on the page)
 const listElement = document.querySelector(".product-list");
-const tentsList = new ProductList("tents", listElement);
-tentsList.init();
+if (listElement) {
+  const tentsList = new ProductList("tents", listElement);
+  tentsList.init();
+}
