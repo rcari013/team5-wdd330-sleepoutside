@@ -54,6 +54,18 @@
           </svg>
         </a>
       </div>
+      <form id="checkout-form">
+      <!-- form fields here -->
+      <button type="submit">Place Order</button>
+      </form>
+
+      <script>
+      document.getElementById("checkout-form").addEventListener("submit", function(e) {
+      e.preventDefault(); // prevent real form submission
+      // ✅ form validation
+      window.location.href = "success.html"; // redirect to success page
+       });
+</script>
     </header>
 
     <main class="divider">
