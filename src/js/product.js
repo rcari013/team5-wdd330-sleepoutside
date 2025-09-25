@@ -16,7 +16,7 @@ async function addToCartHandler(e) {
   const id = e.currentTarget.dataset.id; // safer than e.target
   const product = await dataSource.findProductById(id);
   if (!product) {
-    console.warn("No product for id", id);
+    console.log("No product for id", id);
     return;
   }
   addProductToCart(product);

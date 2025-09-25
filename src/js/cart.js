@@ -31,11 +31,21 @@ function cartItemTemplate(item) {
   </li>`;
 }
 
-
-
 function showCartTotal(cartItems) {
   const footer = document.querySelector(".cart-footer");
   const totalElement = document.querySelector(".cart-total");
+  const discountElement = document.querySelector(".cart-discount");
+
+  // Example discount logic (10% off if more than 3 items)
+  let discount = 0;
+  if (cartItems.length > 3) {
+    const totalBeforeDiscount = cartItems.reduce((sum, item) => sum + item.FinalPrice, 0);
+    discount = totalBeforeDiscount * 0.1; // 10% discount
+    discountElement.textContent = `Discount: -$${discount.toFixed(2)}`;
+    discountElement.classList.remove("hide");
+  } else {
+    discountElement.classList.add("hide");
+  }
 
   if (cartItems.length > 0) {
     footer.classList.remove("hide");
@@ -45,6 +55,5 @@ function showCartTotal(cartItems) {
     footer.classList.add("hide");
   }
 }
-
 
 renderCartContents();

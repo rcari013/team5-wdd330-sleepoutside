@@ -14,22 +14,17 @@ export default class ProductData {
     this.path = `${baseURL}products/search/${this.category}`;
   }
 
-async getData() {
-  console.log("Fetching from:", this.path);
-  const response = await fetch(this.path);
-  const data = await convertToJson(response);
-  console.log("API response:", data);
-  return data.Result; // 👈 return only the array
+  async getData() {
+    console.log("Fetching from:", this.path);
+    const response = await fetch(this.path);
+    const data = await convertToJson(response);
+    console.log("API response:", data);
+    return data.Result; // 👈 return only the array
+  }
+
+  async findProductById(id) {
+    const response = await fetch(`${baseURL}product/${id}`);
+    const data = await convertToJson(response);
+    return data.Result; // unwrap the actual product
+  }
 }
-
-
-
-async findProductById(id) {
-  const response = await fetch(`${baseURL}product/${id}`);
-  const data = await convertToJson(response);
-  return data.Result; // unwrap the actual product
-}
-
-
-
-
