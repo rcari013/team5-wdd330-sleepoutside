@@ -352,3 +352,11 @@ main.divider {
   margin-bottom: 1rem;
 }
 
+.cart-total{
+  font-size: 35px;
+}
+
+.checkout-btn
+{
+  margin-top: 20px;
+}
