@@ -41,7 +41,7 @@ if (form) {
       localStorage.removeItem("so-cart");
 
       // Redirect
-      window.location.href = "success.html";
+      window.location.href = "/src/checkout/success.html";
 
     } catch (err) {
       console.error("Error submitting order:", err);
