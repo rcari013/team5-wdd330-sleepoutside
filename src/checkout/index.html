@@ -17,6 +17,10 @@
       <section class="products">
         <h2>Review & Place Your Order</h2>
 
+        <!-- Order Summary -->
+
+
+
         <!-- Checkout form -->
         <form id="checkout-form">
         <fieldset>
@@ -61,18 +65,15 @@
       <legend>Payment</legend>
       <div>
         <label for="cardNumber">Credit Card Number</label>
-        <input
-          type="text"
-          id="cardNumber"
-          name="cardNumber"
-          required
-          inputmode="numeric"
-          pattern="\d{13,19}"
-          maxlength="19"
-          placeholder="1234 5678 9012 3456"
-          oninvalid="this.setCustomValidity('Please enter a valid credit card number (13 to 19 digits).')"
-          oninput="this.setCustomValidity('')"
-        />
+      <input
+        type="text"
+        id="cardNumber"
+        name="cardNumber"
+        required
+        inputmode="numeric"
+        placeholder="1234 5678 9012 3456"
+      />
+
 
       </div>
 
@@ -120,7 +121,13 @@
 
       </fieldset>
 
-
+      <fieldset>
+        <legend>Order Summary</legend>
+        <p>Subtotal: <span id="subtotal">$0.00</span></p>
+        <p>Tax (6%): <span id="tax">$0.00</span></p>
+        <p>Shipping: <span id="shipping">$0.00</span></p>
+        <p><strong>Total: <span id="orderTotal">$0.00</span></strong></p>
+      </fieldset>
 
 
           <!-- Checkout button -->
