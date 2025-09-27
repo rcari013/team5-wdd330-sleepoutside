@@ -360,3 +360,56 @@ main.divider {
 {
   margin-top: 20px;
 }
+
+.remove-item {
+  cursor: pointer;
+  font-size: 20px;
+  color: red;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.remove-item:hover {
+  color: darkred;
+}
+
+
+/* Base layout: works on mobile */
+.cart-card {
+  display: grid;
+  grid-template-columns: 90px 1fr 40px; /* image | details | X */
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+/* remove button styles */
+.remove-item {
+  grid-column: 3;        /* always last column */
+  justify-self: end;
+  align-self: start;
+  cursor: pointer;
+  font-size: 32px;       /* nice and big for mobile */
+  color: red;
+  font-weight: bold;
+  background: none;
+  border: none;
+  line-height: 1;
+}
+
+.remove-item:hover {
+  color: darkred;
+  transform: scale(1.2);
+}
+
+/* Desktop layout: keep your wider grid but still add X */
+@media screen and (min-width: 500px) {
+  .cart-card {
+    grid-template-columns: 150px auto 15% 40px; /* image | details | qty/price | X */
+  }
+
+  .remove-item {
+    grid-column: 4;
+    font-size: 28px; /* slightly smaller on desktop */
+  }
+}

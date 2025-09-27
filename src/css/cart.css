@@ -1,0 +1,20 @@
+.remove-item {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  cursor: pointer;
+  font-size: 28px;
+  color: red;
+  font-weight: bold;
+  background: none;
+  border: none;
+  line-height: 1;
+  padding: 0;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.remove-item:hover {
+  color: red; /* keep it red */
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.7); /* glow effect */
+  transform: scale(1.2); /* optional slight enlarge */
+}

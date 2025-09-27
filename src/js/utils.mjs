@@ -67,3 +67,26 @@ export async function loadHeaderFooter() {
     console.error("Error loading header/footer:", err);
   }
 }
+
+// utils.mjs
+export function alertMessage(message, scroll = true) {
+  // create alert container
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+  alert.innerHTML = `
+    <span>${message}</span>
+    <button class="alert-close">✖</button>
+  `;
+
+  // close button handler
+  alert.querySelector('.alert-close').addEventListener('click', () => {
+    alert.remove();
+  });
+
+  // insert at the top of main
+  const main = document.querySelector('main');
+  main.prepend(alert);
+
+  // scroll to top so user sees the message
+  if (scroll) window.scrollTo({ top: 0, behavior: "smooth" });
+}
