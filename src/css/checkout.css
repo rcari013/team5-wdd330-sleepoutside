@@ -94,3 +94,61 @@
     grid-template-columns: 1fr;
   }
 }
+
+
+.exp-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* space between input and button */
+}
+
+.exp-wrapper input[type="text"] {
+  flex: 1;
+}
+
+.calendar-btn {
+  background: #556b2f;   /* your button green */
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.calendar-btn:hover {
+  background: #445522;
+}
+
+#expDatePicker {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.full-width {
+  width: 100%;
+  box-sizing: border-box; /* makes sure padding doesn’t overflow */
+}
+
+.alert {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px 15px;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alert button.alert-close {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: inherit;
+}

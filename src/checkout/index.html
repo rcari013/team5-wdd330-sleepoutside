@@ -57,25 +57,67 @@
         </div>
       </fieldset>
 
-      <fieldset>
-        <legend>Payment</legend>
-        <div class="form-grid-2">
-          <div>
-            <label for="cardNumber">Credit Card Number</label>
-            <input type="text" id="cardNumber" name="cardNumber" required />
-          </div>
-        </div>
+    <fieldset>
+      <legend>Payment</legend>
+      <div>
+        <label for="cardNumber">Credit Card Number</label>
+        <input
+          type="text"
+          id="cardNumber"
+          name="cardNumber"
+          required
+          inputmode="numeric"
+          pattern="\d{13,19}"
+          maxlength="19"
+          placeholder="1234 5678 9012 3456"
+          oninvalid="this.setCustomValidity('Please enter a valid credit card number (13 to 19 digits).')"
+          oninput="this.setCustomValidity('')"
+        />
 
-        <div class="form-grid-2">
-          <div>
-            <label for="expDate">Expiration Date</label>
-            <input type="month" id="expDate" name="expDate" required />
-          </div>
-          <div>
-            <label for="securityCode">Security Code</label>
-            <input type="text" id="securityCode" name="securityCode" required />
-          </div>
-        </div>
+      </div>
+
+
+
+
+<div class="form-grid-2">
+  <div>
+    <label for="expDate">Expiration Date</label>
+    <div class="exp-wrapper">
+      <!-- Editable MM/YY field -->
+      <input type="text" id="expDate" name="expDate"
+             placeholder="MM/YY" maxlength="5" required />
+      <!-- Calendar button -->
+      <button type="button" id="openCalendar" class="calendar-btn">📅</button>
+      <!-- Hidden month picker (with min date to grey out past months) -->
+      <input type="month" id="expDatePicker" />
+    </div>
+  </div>
+
+  <div>
+    <label for="securityCode">Security Code</label>
+    <input 
+  type="text" 
+  id="securityCode" 
+  name="securityCode" 
+  required
+  inputmode="numeric" 
+  pattern="\d{3,4}" 
+  maxlength="4" 
+  placeholder="123"
+  oninvalid="this.setCustomValidity('Please enter a valid 3 or 4 digit security code (CVV).')"
+  oninput="this.setCustomValidity('')" 
+/>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
       </fieldset>
 
 
