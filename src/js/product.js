@@ -1,7 +1,7 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";   // 🔄 renamed
 
-const dataSource = new ProductData("tents");
+const dataSource = new ExternalServices("tents");       // 🔄 updated
 
 function addProductToCart(product) {
   // read current cart (null or [] or an old single object) → coerce to array

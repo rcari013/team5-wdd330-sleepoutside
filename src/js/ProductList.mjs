@@ -1,11 +1,11 @@
 import { renderListWithTemplate } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";   // 🔄 renamed
 import productCardTemplate from "./productCardTemplate.js";
 
 export default class ProductList {
   constructor(category, listElement) {
     this.category = category;
-    this.dataSource = new ProductData(category);
+    this.dataSource = new ExternalServices(category);   // 🔄 updated
     this.listElement = listElement;
   }
 
