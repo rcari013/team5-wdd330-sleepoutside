@@ -41,4 +41,35 @@ export default class CheckoutProcess {
     document.querySelector("#shipping").textContent = `$${this.shipping.toFixed(2)}`;
     document.querySelector("#orderTotal").textContent = `$${this.orderTotal.toFixed(2)}`;
   }
+
+  // Step 6 → Package cart items for order
+  packageItems() {
+    const cartItems = getLocalStorage(this.key) || [];
+    return cartItems.map(item => ({
+      id: item.Id,
+      name: item.Name,
+      price: item.FinalPrice ? item.FinalPrice : item.ListPrice,
+      quantity: 1 // static for now
+    }));
+  }
+
+  // Step 6 → Build full order object
+  buildOrderData(formData) {
+    return {
+      orderDate: new Date().toISOString(),
+      fname: formData.get("firstName"),
+      lname: formData.get("lastName"),
+      street: formData.get("street"),
+      city: formData.get("city"),
+      state: formData.get("state"),
+      zip: formData.get("zip"),
+      cardNumber: formData.get("cardNumber"),
+      expiration: formData.get("expDate"),
+      code: formData.get("securityCode"),
+      items: this.packageItems(),
+      orderTotal: this.orderTotal.toFixed(2),
+      shipping: this.shipping.toFixed(2),
+      tax: this.tax.toFixed(2)
+    };
+  }
 }
