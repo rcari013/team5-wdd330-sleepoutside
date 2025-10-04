@@ -18,3 +18,16 @@ export default class ProductList {
     renderListWithTemplate(productCardTemplate, this.listElement, list);
   }
 }
+
+document.getElementById("search_form")?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const category = document.getElementById("search_input").value.trim();
+  if (category) {
+    const listElement = document.getElementById("product_list");
+    const productList = new ProductList(category, listElement);
+    productList.init();
+  } else {
+    alert("Please enter a category to search.");
+  }
+  document.getElementById("search_input").value = "";
+});

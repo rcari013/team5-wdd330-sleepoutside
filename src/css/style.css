@@ -71,6 +71,12 @@ p {
   background-color: white;
 }
 
+#search_form {
+  display: flex;
+  justify-content: center;
+  padding: 0.7em;
+}
+
 .logo--square {
   font-size: var(--small-font);
   width: 110px;
